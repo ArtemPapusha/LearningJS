@@ -1,3 +1,45 @@
+class Form {
+  $form = null;
+  formElements = [];
+  /**
+   * @param {{
+   *   formElements: Array,
+   * }} args
+   */
+  constructor({ formElements = [] }) {
+    this.formElements = formElements;
+
+    this.buildForm();
+  }
+
+  set setForm(value) {
+    this.$baseForm = value;
+  }
+
+  get form() {
+    return this.$baseForm;
+  }
+
+  buildForm = () => {
+    const $form = document.createElement('form');
+    $form.setAttribute('action', '#');
+
+    this.formElements.forEach((formElement) => {
+      $form.appendChild(formElement.$fieldWrapper);
+    });
+    const $inputSubmit = document.createElement('input');
+    $inputSubmit.setAttribute('type', 'submit');
+    $inputSubmit.setAttribute('value', 'Submit');
+    $form.appendChild($inputSubmit);
+
+    this.setForm = $form;
+  };
+
+  renderForm = () => {
+    document.body.appendChild(this.$baseForm);
+  };
+}
+
 const fieldFirstName = new FieldInput({
   name: 'first-name',
   label: 'First name',
@@ -7,8 +49,7 @@ const fieldFirstName = new FieldInput({
 fieldFirstName
   .addIconStart('icon icon-user')
   .addValidation(Validation.maxLength(3))
-  .addValidation(Validation.required())
-  .render();
+  .addValidation(Validation.required());
 
 const fieldLastName = new FieldInput({
   name: 'last-name',
@@ -19,8 +60,7 @@ const fieldLastName = new FieldInput({
 fieldLastName
   .addIconEnd('icon icon-user')
   .addValidation(Validation.maxLength(3))
-  .addValidation(Validation.required())
-  .render();
+  .addValidation(Validation.required());
 
 const fieldEmail = new FieldInput({
   name: 'Email',
@@ -33,8 +73,7 @@ fieldEmail
   .addIconStart('icon icon-envelop')
   .addValidation(Validation.maxLength(15))
   .addValidation(Validation.required())
-  .addValidation(Validation.email())
-  .render();
+  .addValidation(Validation.email());
 
 const fieldCheckboxVehicle = new FieldInputCheckbox({
   name: 'Vehicle',
@@ -43,7 +82,7 @@ const fieldCheckboxVehicle = new FieldInputCheckbox({
   checkedCheckbox: [],
 });
 
-fieldCheckboxVehicle.addValidation(Validation.oneMoreChecked(1)).render();
+fieldCheckboxVehicle.addValidation(Validation.oneMoreChecked(1));
 
 const fieldRadioGender = new FieldInputRadio({
   name: 'Gender',
@@ -52,23 +91,31 @@ const fieldRadioGender = new FieldInputRadio({
   checkedRadio: ['Female'],
 });
 
-fieldRadioGender.render();
-
 const fieldSelectSalary = new FieldSelect({
   name: 'Salary',
   label: 'The size of the salary',
   selectList: ['-Choose size of your salary-', '1000$', '2000$', '3000$'],
 });
 
-fieldSelectSalary
-  .addIconStart('icon icon-menu')
-  .addValidation(Validation.selectRequired())
-  .render();
+fieldSelectSalary.addIconStart('icon icon-menu').addValidation(Validation.selectRequired());
 
 const fieldSwitch = new FieldSwitch({
   name: 'Switch',
   label: 'Agree with me and give me your money!',
 });
 
-fieldSwitch.addValidation(Validation.switchChecked()).render();
-fieldSwitch.toggleSwitch();
+fieldSwitch.addValidation(Validation.switchChecked());
+
+const form = new Form({
+  formElements: [
+    fieldFirstName,
+    fieldLastName,
+    fieldEmail,
+    fieldCheckboxVehicle,
+    fieldRadioGender,
+    fieldSelectSalary,
+    fieldSwitch,
+  ],
+});
+
+form.renderForm();

@@ -53,10 +53,6 @@ class FieldBase extends FieldValidation {
 
     $wrapper.appendChild(this.$field);
 
-    this.fieldWrapper = $wrapper;
-  };
-
-  render = () => {
-    document.body.appendChild(this.$fieldWrapper);
+    this.$fieldWrapper = $wrapper;
   };
 }

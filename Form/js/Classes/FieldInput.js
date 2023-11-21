@@ -87,9 +87,9 @@ class FieldInput extends FieldBaseWithIcon {
    * @param { InputEvent } event
    */
   handleChange = (event) => {
-    this.handleError(event.target.value);
-
     this.value = event.target.value;
+
+    this.handleError(event.target.value);
 
     event.target.value = this.value;
   };

@@ -23,6 +23,7 @@ class FieldSwitch extends FieldBase {
     this.buildInputSwitch();
     this.buildField();
     this.buildFieldWrapper();
+    // this.toggleSwitch();
   }
 
   set setField(value) {
@@ -33,14 +34,14 @@ class FieldSwitch extends FieldBase {
     return this.$field;
   }
 
-  toggleSwitch = () => {
-    const $switchInput = document.getElementById('field-input-checkbox-Switch');
-    const $slider = document.querySelector('.slider');
+  // toggleSwitch = () => {
+  //   const $switchInput = document.getElementById('field-input-checkbox-Switch');
+  //   const $slider = document.querySelector('.slider');
 
-    $slider.addEventListener('click', () => {
-      $switchInput.checked = !$switchInput.checked;
-    });
-  };
+  //   $slider.addEventListener('click', () => {
+  //     $switchInput.checked = !$switchInput.checked;
+  //   });
+  // };
 
   buildInputSwitch = () => {
     const $switchBody = document.createElement('div');
@@ -54,6 +55,10 @@ class FieldSwitch extends FieldBase {
 
     const $spanSlider = document.createElement('span');
     $spanSlider.className = 'slider';
+
+    $spanSlider.addEventListener('click', () => {
+      $inputSwitch.checked = !$inputSwitch.checked;
+    });
 
     const $switchWrapper = document.createElement('div');
     $switchWrapper.className = 'switch-wrapper';

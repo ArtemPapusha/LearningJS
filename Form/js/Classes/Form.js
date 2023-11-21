@@ -31,8 +31,9 @@ const fieldEmail = new FieldInput({
 
 fieldEmail
   .addIconStart('icon icon-envelop')
-  .addValidation(Validation.maxLength(10))
+  .addValidation(Validation.maxLength(15))
   .addValidation(Validation.required())
+  .addValidation(Validation.email())
   .render();
 
 const fieldCheckboxVehicle = new FieldInputCheckbox({

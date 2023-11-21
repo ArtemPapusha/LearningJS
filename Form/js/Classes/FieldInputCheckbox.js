@@ -18,14 +18,7 @@ class FieldInputCheckbox extends FieldBase {
    *   checkboxes: Array,
    * }} args
    */
-  constructor({
-    name,
-    label,
-    legend,
-    checkboxes = [],
-    checkedCheckbox = [],
-    type = 'checkbox',
-  }) {
+  constructor({ name, label, legend, checkboxes = [], checkedCheckbox = [], type = 'checkbox' }) {
     super({ name, label });
     this.value = '';
     this.type = type;
@@ -60,10 +53,7 @@ class FieldInputCheckbox extends FieldBase {
       $inputCheckbox.className = 'field-input-checkbox';
       $inputCheckbox.setAttribute('type', this.type);
       $inputCheckbox.setAttribute('name', this.name);
-      $inputCheckbox.setAttribute(
-        'id',
-        `field-input-checkbox-${this.name}-${value}`
-      );
+      $inputCheckbox.setAttribute('id', `field-input-checkbox-${this.name}-${value}`);
       $inputCheckbox.setAttribute('value', value);
 
       if (this.checkedCheckbox.includes(value)) {

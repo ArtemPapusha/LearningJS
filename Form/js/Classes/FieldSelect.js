@@ -7,6 +7,7 @@ class FieldSelect extends FieldBaseWithIcon {
   $label = null;
   $field = null;
   $option = null;
+  $wrapper = null;
   /**
    * @param {{
    *   name: String,
@@ -17,14 +18,7 @@ class FieldSelect extends FieldBaseWithIcon {
    *   icon: String,
    * }} args
    */
-  constructor({
-    name,
-    label,
-    placeholder,
-    selectList = [],
-    checkedOption,
-    icon,
-  }) {
+  constructor({ name, label, placeholder, selectList = [], checkedOption, icon }) {
     super({ name, label, placeholder, icon });
     this.value = '';
     this.selectList = selectList;
@@ -32,17 +26,16 @@ class FieldSelect extends FieldBaseWithIcon {
 
     this.buildLabel();
     this.buildSelect();
-    this.buildSpanIcon();
     this.buildField();
     this.buildFieldWrapper();
   }
 
-  set setSelect(value) {
-    this.$select = value;
+  set setWrapper(value) {
+    this.$wrapper = value;
   }
 
-  get $select() {
-    return this.$select;
+  get $wrapper() {
+    return this.$wrapper;
   }
 
   set setOption(value) {
@@ -71,25 +64,22 @@ class FieldSelect extends FieldBaseWithIcon {
     $select.setAttribute('id', `field-select-${this.name}`);
 
     const $wrapperSelect = document.createElement('div');
-    $wrapperSelect.className =
-      'wrapper-input dsp_flex align-items-center gap_3';
-    if (this.$icon) {
-      $wrapperSelect.appendChild(this.$icon);
-    }
+    $wrapperSelect.className = `wrapper-${$select.className} dsp_flex align-items-center gap_3`;
+
     $wrapperSelect.appendChild($select);
 
-    $select.addEventListener('blur', this.handleBlur);
+    $select.addEventListener('mouseleave', this.handleBlur);
 
     this.selectList.forEach((value) => {
       const $option = document.createElement('option');
-      $option.className = 'field-select-option';
+      $option.className = `field-select-option-${value}`;
       $option.setAttribute('value', value);
       $option.innerText = value;
 
       this.setOption = $option;
       $select.appendChild(this.$option);
     });
-    this.setSelect = $wrapperSelect;
+    this.setWrapper = $wrapperSelect;
   };
 
   buildField = () => {
@@ -97,13 +87,13 @@ class FieldSelect extends FieldBaseWithIcon {
 
     $fragment.appendChild(this.$label);
 
-    $fragment.appendChild(this.$select);
+    $fragment.appendChild(this.$wrapper);
 
     this.setField = $fragment;
   };
 
   /**
-   * @param { BlurEvent } event
+   * @param { Mouse Event } event
    */
   handleBlur = (event) => {
     this.handleError(event.target.value);

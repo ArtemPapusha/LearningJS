@@ -8,58 +8,40 @@ class FieldBaseWithIcon extends FieldBase {
    *   name: String,
    *   label: String,
    *   placeholder: String,
-   *   icon: String,
    * }} args
    */
-  constructor({ name, label, placeholder, icon, iconPosition }) {
+
+  constructor({ name, label, placeholder }) {
     super({ name, label, placeholder });
     this.name = name;
     this.label = label;
     this.placeholder = placeholder;
-    this.icon = icon;
+  }
 
+  set setSpanIcon(value) {
+    this.$spanIcon = value;
+  }
+
+  get spanIcon() {
+    return this.$spanIcon;
+  }
+
+  addIconEnd = (icon) => {
     this.buildSpanIcon();
-  }
+    this.$wrapper.appendChild(this.$spanIcon);
+    this.$spanIcon.className = `${icon}`;
+    return this;
+  };
 
-  set setIcon(value) {
-    this.$icon = value;
-  }
+  addIconStart = (icon) => {
+    this.buildSpanIcon();
+    this.$wrapper.insertBefore(this.$spanIcon, this.$wrapper.firstChild);
+    this.$spanIcon.className = `${icon}`;
+    return this;
+  };
 
   buildSpanIcon = () => {
     const $spanIcon = document.createElement('span');
-    $spanIcon.className = `${this.icon}`;
-    this.setIcon = $spanIcon;
-    return $spanIcon;
+    this.$spanIcon = $spanIcon;
   };
-
-  // buildFieldWithIcon = () => {
-  //   this.$icon.className = `${this.icon}`;
-  // };
-
-  addIconStart = () => {
-    if (this.$icon) {
-      $wrapperInput.appendChild(this.$icon);
-      $wrapperInput.appendChild($input);
-    }
-  };
-
-  addIconEnd = () => {
-    if (this.$icon) {
-      $wrapperInput.appendChild($input);
-      $wrapperInput.appendChild(this.$icon);
-    }
-  };
-
-  // setUpIconPosition = (position) => {
-  //   this.positions.push(position);
-  //   return this;
-  // }
-
-  // addIconStart = () => {
-  //   .insertBefore(ggg, this.buildSpanIcon)
-  // }
-
-  // addIconEnd = () => {
-
-  // }
 }

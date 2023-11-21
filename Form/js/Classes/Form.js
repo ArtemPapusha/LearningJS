@@ -2,10 +2,10 @@ const fieldFirstName = new FieldInput({
   name: 'first-name',
   label: 'First name',
   placeholder: 'Enter  your first name',
-  icon: 'icon icon-user',
 });
 
 fieldFirstName
+  .addIconStart('icon icon-user')
   .addValidation(Validation.maxLength(3))
   .addValidation(Validation.required())
   .render();
@@ -14,10 +14,10 @@ const fieldLastName = new FieldInput({
   name: 'last-name',
   label: 'Last name',
   placeholder: 'Enter  your last name',
-  icon: 'icon icon-user',
 });
 
 fieldLastName
+  .addIconEnd('icon icon-user')
   .addValidation(Validation.maxLength(3))
   .addValidation(Validation.required())
   .render();
@@ -27,10 +27,10 @@ const fieldEmail = new FieldInput({
   label: 'Email',
   placeholder: 'Enter your e-mail',
   type: 'email',
-  icon: 'icon icon-envelop',
 });
 
 fieldEmail
+  .addIconStart('icon icon-envelop')
   .addValidation(Validation.maxLength(10))
   .addValidation(Validation.required())
   .render();
@@ -57,10 +57,12 @@ const fieldSelectSalary = new FieldSelect({
   name: 'Salary',
   label: 'The size of the salary',
   selectList: ['-Choose size of your salary-', '1000$', '2000$', '3000$'],
-  icon: 'icon icon-menu',
 });
 
-fieldSelectSalary.addValidation(Validation.selectRequired()).render();
+fieldSelectSalary
+  .addIconStart('icon icon-menu')
+  .addValidation(Validation.selectRequired())
+  .render();
 
 const fieldSwitch = new FieldSwitch({
   name: 'Switch',

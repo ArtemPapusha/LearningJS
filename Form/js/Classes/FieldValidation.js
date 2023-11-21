@@ -46,7 +46,7 @@ class FieldValidation {
 
   handleError = (value) => {
     for (let key of this.validations.keys()) {
-      const result = this.validations[key](value);
+      const result = this.validations[key](value, this);
 
       if (result) {
         this.errors = result;

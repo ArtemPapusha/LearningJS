@@ -6,6 +6,7 @@ class FieldInput extends FieldBaseWithIcon {
   $input = null;
   $label = null;
   $field = null;
+  $wrapper = null;
 
   /**
    * @param {{
@@ -13,28 +14,25 @@ class FieldInput extends FieldBaseWithIcon {
    *   label: String,
    *   placeholder: String,
    *   type: String,
-   *   icon: String,
-   *   iconPosition: String,
    * }} args
    */
-  constructor({ name, label, placeholder, type = 'text', icon }) {
-    super({ name, label, placeholder, icon });
+  constructor({ name, label, placeholder, type = 'text' }) {
+    super({ name, label, placeholder });
     this.value = '';
     this.type = type;
 
     this.buildLabel();
     this.buildInput();
-    this.buildSpanIcon();
     this.buildField();
     this.buildFieldWrapper();
   }
 
-  set setInput(value) {
-    this.$input = value;
+  set setWrapper(value) {
+    this.$wrapper = value;
   }
 
-  get $input() {
-    return this.$input;
+  get $wrapper() {
+    return this.$wrapper;
   }
 
   set setField(value) {
@@ -59,16 +57,13 @@ class FieldInput extends FieldBaseWithIcon {
 
     $wrapperInput.className = 'wrapper-input dsp_flex align-items-center gap_3';
 
-    if (this.$icon) {
-      $wrapperInput.appendChild(this.$icon);
-    }
     $wrapperInput.appendChild($input);
 
     $input.addEventListener('input', this.handleChange);
 
     $input.addEventListener('blur', this.handleBlur);
 
-    this.setInput = $wrapperInput;
+    this.setWrapper = $wrapperInput;
   };
 
   buildField = () => {
@@ -76,7 +71,7 @@ class FieldInput extends FieldBaseWithIcon {
 
     $fragment.appendChild(this.$label);
 
-    $fragment.appendChild(this.$input);
+    $fragment.appendChild(this.$wrapper);
 
     this.setField = $fragment;
   };

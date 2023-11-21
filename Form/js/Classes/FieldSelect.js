@@ -15,11 +15,10 @@ class FieldSelect extends FieldBaseWithIcon {
    *   placeholder: String,
    *   selectList: Array,
    *   checkedOption: String,
-   *   icon: String,
    * }} args
    */
-  constructor({ name, label, placeholder, selectList = [], checkedOption, icon }) {
-    super({ name, label, placeholder, icon });
+  constructor({ name, label, placeholder, selectList = [], checkedOption }) {
+    super({ name, label, placeholder });
     this.value = '';
     this.selectList = selectList;
     this.checkedOption = checkedOption;
